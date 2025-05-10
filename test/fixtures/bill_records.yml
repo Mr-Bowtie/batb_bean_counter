@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  billId: 1
+  paid: false
+  date: 2025-05-10
+  message: MyText
+
+two:
+  billId: 1
+  paid: false
+  date: 2025-05-10
+  message: MyText
