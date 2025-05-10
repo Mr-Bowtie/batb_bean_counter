@@ -3477,6 +3477,7 @@ ConvertibleContext	node_modules/node-addon-api/napi.h	/^  struct ConvertibleCont
 Copy	node_modules/node-addon-api/napi-inl.h	/^inline Buffer<T> Buffer<T>::Copy(napi_env env, const T* data, size_t length) {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::Buffer
 CreateBills	db/migrate/20250510191014_create_bills.rb	/^class CreateBills < ActiveRecord::Migration[7.2]$/;"	c
 CreateFunction	node_modules/node-addon-api/napi-inl.h	/^inline napi_status CreateFunction(napi_env env,$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
+CreatePaymentSources	db/migrate/20250510193430_create_payment_sources.rb	/^class CreatePaymentSources < ActiveRecord::Migration[7.2]$/;"	c
 DEBOUNCE_H	node_modules/@parcel/watcher/src/Debounce.hh	/^#define DEBOUNCE_H$/;"	d
 DEFAULT_BUF_SIZE	node_modules/@parcel/watcher/src/windows/WindowsBackend.cc	/^#define DEFAULT_BUF_SIZE /;"	d	file:
 DELETE	node_modules/immutable/dist/immutable.es.js	/^var DELETE = 'delete';$/;"	v
@@ -3911,6 +3912,7 @@ OrderedSetPrototype	node_modules/immutable/dist/immutable.es.js	/^var OrderedSet
 OwnerID	node_modules/immutable/dist/immutable.es.js	/^function OwnerID() { }$/;"	f
 PROMISE_RUNNER_H	node_modules/@parcel/watcher/src/PromiseRunner.hh	/^#define PROMISE_RUNNER_H$/;"	d
 PairSorting.LeftThenRight	node_modules/immutable/dist/immutable.es.js	/^  LeftThenRight: -1,$/;"	p
+PaymentSource	app/models/payment_source.rb	/^class PaymentSource < ApplicationRecord$/;"	c
 Persistent	node_modules/node-addon-api/napi-inl.h	/^inline FunctionReference Persistent(Function value) {$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
 Persistent	node_modules/node-addon-api/napi-inl.h	/^inline ObjectReference Persistent(Object value) {$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
 Persistent	node_modules/node-addon-api/napi-inl.h	/^inline Reference<T> Persistent(T value) {$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
@@ -4332,6 +4334,7 @@ callback	node_modules/node-addon-api/napi.h	/^  TCallback callback;$/;"	m	struct
 callbackEventsToJS	node_modules/@parcel/watcher/src/Watcher.cc	/^Value callbackEventsToJS(const Env &env, std::vector<Event> &events) {$/;"	f
 can_make_string	node_modules/node-addon-api/napi-inl.h	/^struct can_make_string$/;"	s	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE::details
 change	db/migrate/20250510191014_create_bills.rb	/^  def change$/;"	f	class:CreateBills
+change	db/migrate/20250510193430_create_payment_sources.rb	/^  def change$/;"	f	class:CreatePaymentSources
 chars.(	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p
 chars.[	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p
 chars.{	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p

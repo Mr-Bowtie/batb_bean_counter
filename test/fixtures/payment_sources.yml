@@ -2,11 +2,11 @@
 #
 # Table name: payment_sources
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  type       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  name         :string
+#  payment_type :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 one:
