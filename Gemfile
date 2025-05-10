@@ -64,3 +64,5 @@ end
 gem "dockerfile-rails", ">= 1.7", :group => :development
 
 gem "annotate", "~> 3.2"
+
+gem "factory_bot_rails", "~> 6.4"
