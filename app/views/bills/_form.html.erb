@@ -18,17 +18,17 @@
 
   <div>
     <%= form.label :date_number, style: "display: block" %>
-    <%= form.number_field :date_number %>
+    <%= form.text_field :date_number %>
   </div>
 
   <div>
     <%= form.label :amount, style: "display: block" %>
-    <%= form.number_field :amount %>
+    <%= form.text_field :amount %>
   </div>
 
   <div>
     <%= form.label :payment_source, style: "display: block" %>
-    <%= form.select :payment_source, PaymentSource.all.collect { |ps| [ps.name, ps.id]} %>
+    <%= form.select :payment_source_id, PaymentSource.all.collect { |ps| [ps.name, ps.id]} %>
   </div>
 
   <div>
