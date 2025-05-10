@@ -28,7 +28,7 @@
 
   <div>
     <%= form.label :payment_source, style: "display: block" %>
-    <%= form.number_field :payment_source %>
+    <%= form.select :payment_source, PaymentSource.all.collect { |ps| [ps.name, ps.id]} %>
   </div>
 
   <div>

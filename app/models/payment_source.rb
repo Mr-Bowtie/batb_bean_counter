@@ -9,8 +9,6 @@
 #  updated_at   :datetime         not null
 #
 class PaymentSource < ApplicationRecord
-  enum payment_type: %i[
-    credit_card
-    checking_account
-  ]
+  has_many :bills
+  enum :payment_type, [:credit_card, :checking_account]
 end

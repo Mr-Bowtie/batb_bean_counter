@@ -3965,6 +3965,7 @@ Reject	node_modules/node-addon-api/napi-inl.h	/^inline void Promise::Deferred::R
 Release	node_modules/node-addon-api/napi-inl.h	/^TypedThreadSafeFunction<ContextType, DataType, CallJs>::Release() const {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::TypedThreadSafeFunction
 Release	node_modules/node-addon-api/napi-inl.h	/^inline napi_status ThreadSafeFunction::Release() const {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::ThreadSafeFunction
 Remove	node_modules/node-addon-api/napi-inl.h	/^bool Env::CleanupHook<Hook, Arg>::Remove(Env env) {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::Env::CleanupHook
+RenameSourceForeignKey	db/migrate/20250510200426_rename_source_foreign_key.rb	/^class RenameSourceForeignKey < ActiveRecord::Migration[7.2]$/;"	c
 Reset	node_modules/node-addon-api/napi-inl.h	/^inline void Reference<T>::Reset() {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::Reference
 Reset	node_modules/node-addon-api/napi-inl.h	/^inline void Reference<T>::Reset(const T& value, uint32_t refcount) {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::Reference
 Resolve	node_modules/node-addon-api/napi-inl.h	/^inline void Promise::Deferred::Resolve(napi_value value) const {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::Promise::Deferred
@@ -4335,6 +4336,7 @@ callbackEventsToJS	node_modules/@parcel/watcher/src/Watcher.cc	/^Value callbackE
 can_make_string	node_modules/node-addon-api/napi-inl.h	/^struct can_make_string$/;"	s	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE::details
 change	db/migrate/20250510191014_create_bills.rb	/^  def change$/;"	f	class:CreateBills
 change	db/migrate/20250510193430_create_payment_sources.rb	/^  def change$/;"	f	class:CreatePaymentSources
+change	db/migrate/20250510200426_rename_source_foreign_key.rb	/^  def change$/;"	f	class:RenameSourceForeignKey
 chars.(	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p
 chars.[	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p
 chars.{	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p
