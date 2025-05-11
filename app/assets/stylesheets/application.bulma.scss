@@ -37,3 +37,14 @@
 // @import "bulma/sass/layout/section.sass";
 
 @import 'bulma/bulma';
+
+.width-full {
+  width: 100%;
+}
+
+.full-width-select {
+    width: 100%;
+  select {
+    width: 100%;
+  }
+}

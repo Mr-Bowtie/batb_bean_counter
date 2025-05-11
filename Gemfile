@@ -56,6 +56,7 @@ group :development do
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
 
+  gem "dotenv-rails", "~> 3.1"
 end
 
 group :test do
@@ -67,4 +68,5 @@ end
 gem "dockerfile-rails", ">= 1.7", :group => :development
 
 gem "annotate", "~> 3.2"
+
 

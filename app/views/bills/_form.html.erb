@@ -1,42 +1,56 @@
-<%= form_with(model: @bill) do |form| %>
-  <% if bill.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+<div class="container is-flex is-flex-direction-column is-align-items-center">
+  <%= form_with(model: @bill) do |form| %>
+    <% if bill.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(bill.errors.count, "error") %>
+          prohibited this bill from being saved:</h2>
 
-      <ul>
-        <% bill.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% bill.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field mt-4 ">
+      <%= form.label :name, style: "display: block", class: "label" %>
+      <div class="control">
+        <%= form.text_field :name, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field mt-4 ">
+      <%= form.label :date_number, style: "display: block", class: "label" %>
+      <div class="control">
+        <%= form.text_field :date_number, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field mt-4 ">
+      <%= form.label :amount, style: "display: block", class: "label" %>
+      <div class="control">
+        <%= form.text_field :amount, value: currencyDecorator(@bill.amount), class: "input"%>
+      </div>
+    </div>
+
+    <div class="field mt-4">
+      <%= form.label :payment_source, style: "display: block", class: "label" %>
+      <div class="control select full-width-select">
+        <%= form.select :payment_source_id,
+          PaymentSource.all.collect { |ps| [ps.name, ps.id] }%>
+      </div>
+    </div>
+
+    <div class="field mt-4 ">
+      <%= form.label :tags, style: "display: block" ,class: "label"%>
+      <div class="control">
+        <%= form.text_field :tags, class: "input" %>
+      </div>
+    </div>
+
+    <div class="has-text-centered mt-4">
+      <%= form.submit "Submit", class: "button is-primary is-outlined" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :date_number, style: "display: block" %>
-    <%= form.text_field :date_number %>
-  </div>
-
-  <div>
-    <%= form.label :amount, style: "display: block" %>
-    <%= form.text_field :amount, value: currencyDecorator(@bill.amount) %>
-  </div>
-
-  <div>
-    <%= form.label :payment_source, style: "display: block" %>
-    <%= form.select :payment_source_id, PaymentSource.all.collect { |ps| [ps.name, ps.id]} %>
-  </div>
-
-  <div>
-    <%= form.label :tags, style: "display: block" %>
-    <%= form.text_field :tags %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

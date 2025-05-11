@@ -1,0 +1,11 @@
+<% content_for :title, "New payment source" %>
+
+<h1>New payment source</h1>
+
+<%= render "form", payment_source: @payment_source %>
+
+<br>
+
+<div>
+  <%= link_to "Back to payment sources", payment_sources_path %>
+</div>

@@ -3386,6 +3386,7 @@ BigInt	node_modules/node-addon-api/napi-inl.h	/^inline BigInt::BigInt(napi_env e
 BigInt	node_modules/node-addon-api/napi.h	/^class BigInt : public Value {$/;"	c	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
 Bill	app/models/bill.rb	/^class Bill < ApplicationRecord$/;"	c
 BillRecord	app/models/bill_record.rb	/^class BillRecord < ApplicationRecord$/;"	c
+BillRecordTest	test/models/bill_record_test.rb	/^class BillRecordTest < ActiveSupport::TestCase$/;"	c
 BillTest	test/models/bill_test.rb	/^class BillTest < ActiveSupport::TestCase$/;"	c
 BillsController	app/controllers/bills_controller.rb	/^class BillsController < ApplicationController$/;"	c
 BillsControllerTest	test/controllers/bills_controller_test.rb	/^class BillsControllerTest < ActionDispatch::IntegrationTest$/;"	c
@@ -3475,6 +3476,7 @@ ConnectionTest	test/channels/application_cable/connection_test.rb	/^  class Conn
 ConstructorCallbackWrapper	node_modules/node-addon-api/napi-inl.h	/^inline napi_value ObjectWrap<T>::ConstructorCallbackWrapper($/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::ObjectWrap
 ConvertibleContext	node_modules/node-addon-api/napi.h	/^  struct ConvertibleContext {$/;"	s	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::ThreadSafeFunction
 Copy	node_modules/node-addon-api/napi-inl.h	/^inline Buffer<T> Buffer<T>::Copy(napi_env env, const T* data, size_t length) {$/;"	f	class:Napi::NAPI_CPP_CUSTOM_NAMESPACE::Buffer
+CreateBillRecords	db/migrate/20250510191140_create_bill_records.rb	/^class CreateBillRecords < ActiveRecord::Migration[7.2]$/;"	c
 CreateBills	db/migrate/20250510191014_create_bills.rb	/^class CreateBills < ActiveRecord::Migration[7.2]$/;"	c
 CreateFunction	node_modules/node-addon-api/napi-inl.h	/^inline napi_status CreateFunction(napi_env env,$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
 CreatePaymentSources	db/migrate/20250510193430_create_payment_sources.rb	/^class CreatePaymentSources < ActiveRecord::Migration[7.2]$/;"	c
@@ -3913,6 +3915,7 @@ OwnerID	node_modules/immutable/dist/immutable.es.js	/^function OwnerID() { }$/;"
 PROMISE_RUNNER_H	node_modules/@parcel/watcher/src/PromiseRunner.hh	/^#define PROMISE_RUNNER_H$/;"	d
 PairSorting.LeftThenRight	node_modules/immutable/dist/immutable.es.js	/^  LeftThenRight: -1,$/;"	p
 PaymentSource	app/models/payment_source.rb	/^class PaymentSource < ApplicationRecord$/;"	c
+PaymentSourceTest	test/models/payment_source_test.rb	/^class PaymentSourceTest < ActiveSupport::TestCase$/;"	c
 Persistent	node_modules/node-addon-api/napi-inl.h	/^inline FunctionReference Persistent(Function value) {$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
 Persistent	node_modules/node-addon-api/napi-inl.h	/^inline ObjectReference Persistent(Object value) {$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
 Persistent	node_modules/node-addon-api/napi-inl.h	/^inline Reference<T> Persistent(T value) {$/;"	f	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE
@@ -4335,6 +4338,7 @@ callback	node_modules/node-addon-api/napi.h	/^  TCallback callback;$/;"	m	struct
 callbackEventsToJS	node_modules/@parcel/watcher/src/Watcher.cc	/^Value callbackEventsToJS(const Env &env, std::vector<Event> &events) {$/;"	f
 can_make_string	node_modules/node-addon-api/napi-inl.h	/^struct can_make_string$/;"	s	namespace:Napi::NAPI_CPP_CUSTOM_NAMESPACE::details
 change	db/migrate/20250510191014_create_bills.rb	/^  def change$/;"	f	class:CreateBills
+change	db/migrate/20250510191140_create_bill_records.rb	/^  def change$/;"	f	class:CreateBillRecords
 change	db/migrate/20250510193430_create_payment_sources.rb	/^  def change$/;"	f	class:CreatePaymentSources
 change	db/migrate/20250510200426_rename_source_foreign_key.rb	/^  def change$/;"	f	class:RenameSourceForeignKey
 chars.(	node_modules/is-glob/index.js	/^var chars = { '{': '}', '(': ')', '[': ']'};$/;"	p
@@ -4431,6 +4435,7 @@ contains	node_modules/detect-libc/lib/detect-libc.js	/^function contains (needle
 contains	node_modules/to-regex-range/index.js	/^function contains(arr, key, val) {$/;"	f
 context	node_modules/node-addon-api/napi.h	/^    void* context;$/;"	m	struct:Napi::NAPI_CPP_CUSTOM_NAMESPACE::ThreadSafeFunction::ConvertibleContext
 convertAllToFastObject	node_modules/sass/sass.dart.js	/^  function convertAllToFastObject(arrayOfObjects) {$/;"	f
+convertCurrencyForSubmit	app/models/bill.rb	/^  def self.convertCurrencyForSubmit(input)$/;"	F	class:Bill
 convertToFastObject	node_modules/sass/sass.dart.js	/^  function convertToFastObject(properties) {$/;"	f
 convertToFastObject.t	node_modules/sass/sass.dart.js	/^    function t() {$/;"	f
 countByFactory	node_modules/immutable/dist/immutable.es.js	/^function countByFactory(collection, grouper, context) {$/;"	f
@@ -4443,6 +4448,7 @@ createFsWatchInstance	node_modules/chokidar/handler.js	/^function createFsWatchI
 createNodes	node_modules/immutable/dist/immutable.es.js	/^function createNodes(ownerID, entries, key, value) {$/;"	f
 createPattern	node_modules/chokidar/esm/index.js	/^function createPattern(matcher) {$/;"	f
 createPattern	node_modules/chokidar/index.js	/^function createPattern(matcher) {$/;"	f
+currencyDecorator	app/helpers/bills_helper.rb	/^  def currencyDecorator(input)$/;"	f	class:BillsHelper
 data	node_modules/node-addon-api/napi-inl.h	/^  FinalizerDataType* data;$/;"	m	struct:Napi::NAPI_CPP_CUSTOM_NAMESPACE::details::ThreadSafeFinalize
 data	node_modules/node-addon-api/napi-inl.h	/^  void* data;$/;"	m	struct:Napi::NAPI_CPP_CUSTOM_NAMESPACE::details::AccessorCallbackData
 data	node_modules/node-addon-api/napi-inl.h	/^  void* data;$/;"	m	struct:Napi::NAPI_CPP_CUSTOM_NAMESPACE::details::CallbackData
