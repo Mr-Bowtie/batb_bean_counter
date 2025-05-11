@@ -22,6 +22,7 @@ class BillsController < ApplicationController
   # POST /bills or /bills.json
   def create
     @bill = Bill.new(bill_params)
+    @bill.amount = Bill.convertCurrencyForSubmit(bill_params[:amount])
 
     respond_to do |format|
       if @bill.save
@@ -36,8 +37,11 @@ class BillsController < ApplicationController
 
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
+    trans_params = bill_params
+    trans_params[:amount] = Bill.convertCurrencyForSubmit(bill_params[:amount])
+
     respond_to do |format|
-      if @bill.update(bill_params)
+      if @bill.update(trans_params)
         format.html { redirect_to @bill, notice: "Bill was successfully updated." }
         format.json { render :show, status: :ok, location: @bill }
       else
