@@ -26,7 +26,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to @bill, notice: "Bill was successfully created." }
+        format.html { redirect_to bills_path, notice: "Bill was successfully created." }
         format.json { render :show, status: :created, location: @bill }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.update(trans_params)
-        format.html { redirect_to @bill, notice: "Bill was successfully updated." }
+        format.html { redirect_to bills_path, notice: "Bill was successfully updated." }
         format.json { render :show, status: :ok, location: @bill }
       else
         format.html { render :edit, status: :unprocessable_entity }
