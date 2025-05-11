@@ -1,27 +1,28 @@
 <div id="<%= dom_id bill %>">
-  <p>
-    <strong>Name:</strong>
+  <p class="has-text-centered title is-4">
     <%= bill.name %>
   </p>
 
-  <p>
-    <strong>Date number:</strong>
+  <p class="has-text-centered mt-2">
+    <strong class="has-text-info"><%= bill.payment_source.name %></strong>
+  </p>
+
+  <p class="has-text-centered has-text-danger subtitle is-5">
+    $<%= currencyDecorator(bill.amount)  %>
+  </p>
+
+  <p class="has-text-centered">
+    <strong>Due on:</strong>
     <%= bill.date_number %>
   </p>
+  
 
-  <p>
-    <strong>Amount:</strong>
-    <%= currencyDecorator(bill.amount)  %>
-  </p>
+  <% unless bill.tags.empty? %>
+    <p>
+      <strong>Tags:</strong>
+      <%= bill.tags %>
+    </p>
+  <% end %>
 
-  <p>
-    <strong>Payment source:</strong>
-    <%= bill.payment_source.name %>
-  </p>
-
-  <p>
-    <strong>Tags:</strong>
-    <%= bill.tags %>
-  </p>
 
 </div>

@@ -1,16 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4 mx-2>
+  <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Bills" %>
+  <% content_for :title, "Bills" %>
 
-<h1 class="title is-1">Bills</h1>
+  <div class="is-flex is-flex-direction-column is-align-items-center">
+    <h1 class="title is-1">Bills</h1>
+    <%= link_to "New bill", new_bill_path, class: "button is-info mt-4" %>
+  </div>
 
-<div id="bills">
-  <% @bills.each do |bill| %>
-    <%= render bill %>
-    <p>
-      <%= link_to "Show this bill", bill %>
-    </p>
-  <% end %>
+  <div id="bills" class="grid mt-4">
+    <% @bills.each do |bill| %>
+      <div class="cell bill">
+        <%= render bill %>
+        <p class="has-text-centered mt-2">
+          <%= link_to "edit", edit_bill_path(bill), class: "has-text-warning" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+
 </div>
-
-<%= link_to "New bill", new_bill_path, class: "button is-info" %>
