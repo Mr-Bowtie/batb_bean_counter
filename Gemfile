@@ -45,6 +45,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "pry", "~> 0.15.2"
 end
 
 group :development do
@@ -53,6 +55,7 @@ group :development do
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
+
 end
 
 group :test do
@@ -65,4 +68,3 @@ gem "dockerfile-rails", ">= 1.7", :group => :development
 
 gem "annotate", "~> 3.2"
 
-gem "factory_bot_rails", "~> 6.4"
