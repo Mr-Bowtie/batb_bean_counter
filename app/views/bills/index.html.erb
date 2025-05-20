@@ -9,7 +9,7 @@
   </div>
 
   <div id="bills" class="grid mt-4">
-    <% @bills.each do |bill| %>
+    <% @bills.sort_by(&:date_number).each do |bill| %>
       <div class="cell bill">
         <%= render bill %>
         <p class="has-text-centered mt-2">
