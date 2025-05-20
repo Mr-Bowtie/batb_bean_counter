@@ -3,7 +3,7 @@ class BillsController < ApplicationController
 
   # GET /bills or /bills.json
   def index
-    @bills = Bill.all
+    @bills = Bill.all.includes(:payment_source)
   end
 
   # GET /bills/1 or /bills/1.json
