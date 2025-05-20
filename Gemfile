@@ -57,6 +57,8 @@ group :development do
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
 
   gem "dotenv-rails", "~> 3.1"
+
+  gem "solargraph-rails"
 end
 
 group :test do
