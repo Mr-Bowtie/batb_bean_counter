@@ -1,0 +1,17 @@
+<div class="container mt-4 mx-2>
+  <p style="color: green"><%= notice %></p>
+
+  <% content_for :title, "Bills in period" %>
+
+  <h1 class="title is-1">Bills in period</h1>
+
+  <div id="bills" class="grid mt-4">
+    <% @bill_records.sort_by(&:date).each do |bill_record| %>
+      <div class="cell bill_record">
+        <%= render bill_record %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+

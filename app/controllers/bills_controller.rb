@@ -19,6 +19,13 @@ class BillsController < ApplicationController
   def edit
   end
 
+  # GET /bills_in_period
+  def show_bills_in_period
+    @bill_records = BillUtils.gatherInPeriod(Date.parse(params[:start_date]), Date.parse(params[:end_date]))
+  end
+
+
+
   # POST /bills or /bills.json
   def create
     @bill = Bill.new(bill_params)

@@ -1,0 +1,6 @@
+<div id="<%= dom_id bill_record %>">
+  <p><%= bill_record.bill.name %></p>
+  <p><%= bill_record.date %></p>
+  <p>Paid : <%= bill_record.paid %></p>
+  <p>$<%= currencyDecorator(bill_record.bill.amount) %></p>
+</div>

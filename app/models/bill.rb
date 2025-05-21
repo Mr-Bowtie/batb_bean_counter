@@ -13,6 +13,7 @@
 #
 class Bill < ApplicationRecord
   belongs_to :payment_source
+  has_many :bill_records
   validates :name, :amount, :date_number, :payment_source_id, presence: true
 
   def self.convertCurrencyForSubmit(input)

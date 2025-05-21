@@ -1,4 +1,4 @@
-<div class="container mt-4 mx-2>
+<div class="mt-4 mx-2">
   <p style="color: green"><%= notice %></p>
 
   <% content_for :title, "Bills" %>
@@ -8,7 +8,31 @@
     <%= link_to "New bill", new_bill_path, class: "button is-info mt-4" %>
   </div>
 
-  <div id="bills" class="grid mt-4">
+  <div class="container">
+    <h2 class="subtitle is-4">Show in period</h2> 
+    <%= form_with url: '/show_bills_in_period', method: :get do |form| %>
+      <div class="is-flex">
+        <div class="field">
+          <%= form.label "Start", class: "label" %>
+          <div class="control">
+            <%= form.date_field :start_date, class: "input" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label "End", class: "label" %>
+          <div class="control">
+            <%= form.date_field :end_date, class: "input" %>
+          </div>
+        </div>
+
+        <div class="has-text-centered">
+          <%= form.submit "submit", class: "button is-primary is-outlined" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="bills" class="container grid mt-4">
     <% @bills.sort_by(&:date_number).each do |bill| %>
       <div class="cell bill">
         <%= render bill %>

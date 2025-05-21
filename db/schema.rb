@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_10_200426) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_21_020040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bill_records", force: :cascade do |t|
-    t.integer "billId"
-    t.boolean "paid"
+    t.integer "bill_id"
+    t.boolean "paid", default: false
     t.date "date"
     t.text "message"
     t.datetime "created_at", null: false
