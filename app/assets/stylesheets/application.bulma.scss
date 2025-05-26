@@ -54,3 +54,13 @@
   border: 1px solid white;
   border-radius: 15px;
 }
+
+// create a centered region 20% of vw and center text inside
+// INFO: allows for title to be centered easily with other elements inline
+// # TODO: 20% wont be big enough for all titles, either create more cleasses to handle different sizes or refactor for all sizes
+.fixed-center-title-20 {
+  position: fixed;
+  left: 40%;
+  right: 40%;
+  text-align: center;
+}
