@@ -3,29 +3,19 @@
 
   <% content_for :title, "Bills" %>
 
-  <div class="is-flex is-align-items-center">
-    <h1 class="title is-1 fixed-center-title-20">
-      Bills
-    </h1>
-    <div class="ml-auto">
-        <%= link_to "New bill", new_bill_path, class: "button is-info" %>
-    </div>
-  </div>
-
-  <div class="container is-flex is-flex-direction-column is-align-items-center">
-    <h2 class="subtitle is-4">In Period</h2> 
-    <%= form_with url: '/show_bills_in_period', method: :get do |form| %>
-      <div class="is-flex">
+  <div class="is-flex is-align-items-center my-4">
+    <%= form_with url: '/show_bills_in_period', class: "width-35" ,method: :get do |form| %>
+      <div class="is-flex is-align-items-end is-justify-content-space-around">
         <div class="field">
           <%= form.label "Start", class: "label" %>
           <div class="control">
-            <%= form.date_field :start_date, class: "input" %>
+            <%= form.date_field :start_date, class: "input is-warning is-outlined" %>
           </div>
         </div>
         <div class="field">
           <%= form.label "End", class: "label" %>
           <div class="control">
-            <%= form.date_field :end_date, class: "input" %>
+            <%= form.date_field :end_date, class: "input is-warning is-outlined" %>
           </div>
         </div>
 
@@ -34,6 +24,18 @@
         </div>
       </div>
     <% end %>
+
+    <h1 class="title is-1 fixed-center-title-20">
+      Bills
+    </h1>
+
+    <div class="ml-auto">
+      <%= link_to "New bill", new_bill_path, class: "button is-info" %>
+    </div>
+  </div>
+
+  <div class="container is-flex is-flex-direction-column is-align-items-center">
+    <h2 class="subtitle is-4">In Period</h2>
   </div>
 
   <div id="bills" class="grid mt-4">
