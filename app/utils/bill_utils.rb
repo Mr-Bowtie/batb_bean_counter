@@ -29,4 +29,14 @@ class BillUtils
 
     found_records
   end
+
+  # @param records Array<BillRecord>
+  # @return Integer sum of bill amounts in cents
+  def self.sumRecords(records)
+    # extract bills from records
+    bill_ids = records.map(&:bill_id)
+    bills = Bill.where(id: bill_ids)
+    # sum bill amounts
+    bills.reduce(0) { |memo, bill| memo + bill.amount }
+  end
 end
