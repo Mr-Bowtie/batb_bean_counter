@@ -21,7 +21,14 @@ class BillsController < ApplicationController
 
   # GET /bills_in_period
   def show_bills_in_period
-    @bill_records = BillUtils.gatherInPeriod(Date.parse(params[:start_date]), Date.parse(params[:end_date]))
+    if params[:start_date].empty? || params[:end_date].empty?
+      redirect_back_or_to bills_path, alert: "Ya, gotta have a start and end. C'mon!"
+    else
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
+      @bill_records = BillUtils.gatherInPeriod(Date.parse(params[:start_date]), Date.parse(params[:end_date]))
+      @period_balance = BillUtils.sumRecords(@bill_records)
+    end
   end
 
 
