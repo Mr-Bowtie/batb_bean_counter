@@ -1,6 +1,14 @@
 <div id="<%= dom_id bill_record %>">
-  <p><%= bill_record.bill.name %></p>
-  <p><%= bill_record.date %></p>
-  <p>Paid : <%= bill_record.paid %></p>
-  <p>$<%= currencyDecorator(bill_record.bill.amount) %></p>
+  <p class="has-text-centered title is-4">
+    <%= bill_record.bill.name %>
+  </p>
+  <p class="has-text-centered mt-2">
+    <%= bill_record.date %>
+  </p>
+  <p class="has-text-centered">Paid :
+    <%= bill_record.paid %>
+  </p>
+  <p class="has-text-centered has-text-danger subtitle is-5">
+    $<%= currencyDecorator(bill_record.bill.amount) %>
+  </p>
 </div>
