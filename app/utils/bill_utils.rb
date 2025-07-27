@@ -10,7 +10,7 @@ class BillUtils
     start_date.upto(end_date) { |date| date_correlations[date.day] = date }
 
     # gather all bills relevant to the given period
-    bill_ids = Bill.where("date_number >= ? AND date_number <= ?", start_date.day, end_date.day).map(&:id)
+    bill_ids = Bill.where(date_number: date_correlations.keys).map(&:id)
     # Find any records for those bills in the given period
     found_records = BillRecord.where(date: start_date..end_date, bill_id: bill_ids).to_a
 
