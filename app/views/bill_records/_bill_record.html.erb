@@ -5,9 +5,14 @@
   <p class="has-text-centered mt-2">
     <%= bill_record.date %>
   </p>
-  <p class="has-text-centered">Paid :
-    <%= bill_record.paid %>
-  </p>
+  <div class="is-flex is-align-items-center is-justify-content-center">
+    <p class="has-text-centered">Paid :
+    </p>
+    <%= form_with url: bill_record_path(bill_record), method: :patch, local: true, class: "is-flex is-flex-direction-column is-align-items-center" do |form| %>
+      <%= form.check_box :paid,
+                     { onchange: "this.form.submit();", checked: bill_record.paid, class: "ml-2" } %>
+    <% end %>
+  </div>
   <p class="has-text-centered has-text-danger subtitle is-5">
     $<%= currencyDecorator(bill_record.bill.amount) %>
   </p>
