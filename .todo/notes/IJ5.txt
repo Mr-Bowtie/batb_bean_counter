@@ -1,0 +1,7 @@
+# (A) create pay period model +payPeriodBreakdown
+
+- want to associate bill instances
+- paycheck_amount: integer
+- pay_date: date
+- pay_frequency: integer # enum {daily, weekly, bi-weekly, monthly, custom}
+- breakdown_ruleset_id: integer

@@ -1,0 +1,6 @@
+(A) add bill source to show in period display +updates
+(A) create pay period model +payPeriodBreakdown note:IJ5.txt
+(A) create pay period form +payPeriodBreakdown
+(A) add pay period breakdown index page +payPeriodBreakdown
+
+(A) hardcode splitting rules +payPeriodBreakdown
