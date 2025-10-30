@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @pay_period_breakdown %>
+
+<div>
+  <%= link_to "Edit this pay period breakdown", edit_pay_period_breakdown_path(@pay_period_breakdown) %> |
+  <%= link_to "Back to pay period breakdowns", pay_period_breakdowns_path %>
+
+  <%= button_to "Destroy this pay period breakdown", @pay_period_breakdown, method: :delete %>
+</div>

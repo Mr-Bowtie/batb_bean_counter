@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_21_020040) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_30_014512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_020040) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pay_period_breakdown_id"
   end
 
   create_table "bills", force: :cascade do |t|
@@ -29,6 +30,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_21_020040) do
     t.integer "amount"
     t.integer "payment_source_id"
     t.text "tags", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pay_period_breakdowns", force: :cascade do |t|
+    t.integer "paycheck_amount"
+    t.date "pay_date"
+    t.date "next_pay_date"
+    t.integer "pay_frequency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

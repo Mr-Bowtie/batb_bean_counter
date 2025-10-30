@@ -1,0 +1,11 @@
+<% content_for :title, "New pay period breakdown" %>
+
+<h1>New pay period breakdown</h1>
+
+<%= render "form", pay_period_breakdown: @pay_period_breakdown %>
+
+<br>
+
+<div>
+  <%= link_to "Back to pay period breakdowns", pay_period_breakdowns_path %>
+</div>

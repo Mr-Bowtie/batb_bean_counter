@@ -1,0 +1,37 @@
+<%= form_with(model: pay_period_breakdown) do |form| %>
+  <% if pay_period_breakdown.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(pay_period_breakdown.errors.count, "error") %> prohibited this pay_period_breakdown from being saved:</h2>
+
+      <ul>
+        <% pay_period_breakdown.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :paycheck_amount, style: "display: block" %>
+    <%= form.number_field :paycheck_amount %>
+  </div>
+
+  <div>
+    <%= form.label :pay_date, style: "display: block" %>
+    <%= form.date_field :pay_date %>
+  </div>
+
+  <div>
+    <%= form.label :next_pay_date, style: "display: block" %>
+    <%= form.date_field :next_pay_date %>
+  </div>
+
+  <div>
+    <%= form.label :pay_frequency, style: "display: block" %>
+    <%= form.number_field :pay_frequency %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

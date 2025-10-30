@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Pay period breakdowns" %>
+
+<h1>Pay period breakdowns</h1>
+
+<div id="pay_period_breakdowns">
+  <% @pay_period_breakdowns.each do |pay_period_breakdown| %>
+    <%= render pay_period_breakdown %>
+    <p>
+      <%= link_to "Show this pay period breakdown", pay_period_breakdown %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New pay period breakdown", new_pay_period_breakdown_path %>

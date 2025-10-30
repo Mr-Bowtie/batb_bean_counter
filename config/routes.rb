@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pay_period_breakdowns
   resources :bill_records
   resources :payment_sources
   resources :bills
