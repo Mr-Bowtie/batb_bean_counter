@@ -11,8 +11,6 @@
 #  updated_at      :datetime         not null
 #
 class PayPeriodBreakdown < ApplicationRecord
-  has_many :bill_records
-  has_many :bills, through: :bill_records
 
   validates :pay_date, paycheck_amount, presence: true
 
