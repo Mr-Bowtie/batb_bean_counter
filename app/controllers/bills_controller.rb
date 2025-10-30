@@ -83,6 +83,6 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:name, :date_number, :amount, :payment_source_id, :tags)
+      params.require(:bill).permit(:name, :date_number, :amount, :payment_source_id, :show_each_paycheck)
     end
 end
