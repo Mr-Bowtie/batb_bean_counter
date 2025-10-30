@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_30_201703) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_30_203922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_30_201703) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bill_records_pay_period_breakdowns", id: false, force: :cascade do |t|
+    t.bigint "bill_record_id"
+    t.bigint "pay_period_breakdown_id"
+    t.index ["bill_record_id"], name: "index_bill_records_pay_period_breakdowns_on_bill_record_id"
+    t.index ["pay_period_breakdown_id"], name: "idx_on_pay_period_breakdown_id_c7a1b0aab0"
   end
 
   create_table "bills", force: :cascade do |t|

@@ -12,4 +12,5 @@
 #
 class BillRecord < ApplicationRecord
   belongs_to :bill
+  has_and_belongs_to_many :pay_period_breakdowns
 end
