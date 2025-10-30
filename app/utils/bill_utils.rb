@@ -32,7 +32,7 @@ class BillUtils
 
   # @param records Array<BillRecord>
   # @return Integer sum of bill amounts in cents
-  def self.sumRecords(records)
+  def self.sum_records(records)
     # extract bills from records
 
     bill_ids = records.select{|rec| !rec.paid }.map(&:bill_id)
