@@ -5,6 +5,11 @@
   <p class="has-text-centered mt-2">
     <%= bill_record.date %>
   </p>
+
+  <p class="has-text-centered mt-2">
+    <strong class="has-text-info"><%= bill_record.bill.payment_source.name %></strong>
+  </p>
+
   <div class="is-flex is-align-items-center is-justify-content-center">
     <p class="has-text-centered">Paid :
     </p>
