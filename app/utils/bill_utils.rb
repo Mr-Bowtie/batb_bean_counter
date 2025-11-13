@@ -3,7 +3,7 @@ class BillUtils
   # @param end_date [Date]
   # @return Array<BillRecord>
   def self.gatherInPeriod(start_date, end_date)
-    return if end_date < start_date
+    return [] if start_date.blank? || end_date.blank? || end_date < start_date
 
     # create an in memory hash to quickly reference the correct, in context date, given the date number from the bill.
     date_correlations = {}
@@ -33,6 +33,9 @@ class BillUtils
   # @param records Array<BillRecord>
   # @return Integer sum of bill amounts in cents
   def self.sum_records(records)
+    records = Array(records)
+    return 0 if records.empty?
+
     # extract bills from records
 
     bill_ids = records.select{|rec| !rec.paid }.map(&:bill_id)

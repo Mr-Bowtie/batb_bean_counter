@@ -22,14 +22,18 @@
   </div>
 
   <div>
-    <%= form.label :next_pay_date, style: "display: block" %>
-    <%= form.date_field :next_pay_date %>
-  </div>
-
-  <div>
     <%= form.label :pay_frequency, style: "display: block" %>
     <%= form.number_field :pay_frequency %>
+    <p style="font-size: 0.9em; color: #555;">Enter the number of days between paychecks.</p>
   </div>
+
+  <% if pay_period_breakdown.next_pay_date.present? %>
+    <p>
+      Next pay date will be calculated as <strong><%= pay_period_breakdown.next_pay_date %></strong>.
+    </p>
+  <% else %>
+    <p>Next pay date will be calculated automatically once pay date and frequency are provided.</p>
+  <% end %>
 
   <div>
     <%= form.submit %>

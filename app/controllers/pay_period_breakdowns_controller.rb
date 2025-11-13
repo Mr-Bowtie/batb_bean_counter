@@ -8,6 +8,8 @@ class PayPeriodBreakdownsController < ApplicationController
 
   # GET /pay_period_breakdowns/1 or /pay_period_breakdowns/1.json
   def show
+    @bill_records = @pay_period_breakdown.bill_records.includes(:bill)
+    @calculation = @pay_period_breakdown.calculate
   end
 
   # GET /pay_period_breakdowns/new
@@ -65,6 +67,6 @@ class PayPeriodBreakdownsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pay_period_breakdown_params
-      params.require(:pay_period_breakdown).permit(:paycheck_amount, :pay_date, :next_pay_date, :pay_frequency)
+      params.require(:pay_period_breakdown).permit(:paycheck_amount, :pay_date, :pay_frequency)
     end
 end

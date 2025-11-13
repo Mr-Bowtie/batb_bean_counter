@@ -1,7 +1,7 @@
 <div id="<%= dom_id pay_period_breakdown %>">
   <p>
     <strong>Paycheck amount:</strong>
-    <%= pay_period_breakdown.paycheck_amount %>
+    <%= currency_from_cents(pay_period_breakdown.paycheck_amount) %>
   </p>
 
   <p>
@@ -16,7 +16,6 @@
 
   <p>
     <strong>Pay frequency:</strong>
-    <%= pay_period_breakdown.pay_frequency %>
+    <%= pluralize(pay_period_breakdown.pay_frequency, "day") %>
   </p>
-
 </div>

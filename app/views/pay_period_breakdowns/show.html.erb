@@ -1,6 +1,46 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @pay_period_breakdown %>
+<section>
+  <%= render @pay_period_breakdown %>
+</section>
+
+<section>
+  <h2>Bills in this pay period</h2>
+  <% if @bill_records.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bill_records.each do |record| %>
+          <tr>
+            <td><%= record.bill&.name || "Bill ##{record.bill_id}" %></td>
+            <td><%= currency_from_cents(record.bill&.amount.to_i) %></td>
+            <td><%= record.date %></td>
+            <td><%= record.paid? ? "Paid" : "Pending" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No bills have been associated with this pay period yet.</p>
+  <% end %>
+</section>
+
+<section>
+  <h2>Suggested allocation</h2>
+  <ul>
+    <li>Leftover funds: <%= currency_from_cents(@calculation[:leftover_funds]) %></li>
+    <li>Credit card funds: <%= currency_from_cents(@calculation[:credit_card_funds]) %></li>
+    <li>Fun money: <%= currency_from_cents(@calculation[:fun_money]) %></li>
+    <li>Individual funds: <%= currency_from_cents(@calculation[:individual_funds]) %></li>
+  </ul>
+</section>
 
 <div>
   <%= link_to "Edit this pay period breakdown", edit_pay_period_breakdown_path(@pay_period_breakdown) %> |
