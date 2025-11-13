@@ -1,0 +1,9 @@
+# (A) build 'show every check' bill_record util function +payPeriodBreakdown
+
+when creating a pay_period_breakdown 
+find all bills that have 'show_each_paycheck == true'
+create new bill_records for each
+set date to nil
+attach to new breakdown
+
+viewing a breakdown should show all 'show_each_paycheck' records 

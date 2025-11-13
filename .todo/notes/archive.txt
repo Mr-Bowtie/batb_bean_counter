@@ -5,3 +5,4 @@
 - pay_date: date
 - pay_frequency: integer # enum {daily, weekly, bi-weekly, monthly, custom}
 - breakdown_ruleset_id: integer
+
