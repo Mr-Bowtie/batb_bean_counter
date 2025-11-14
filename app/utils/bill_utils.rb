@@ -12,7 +12,7 @@ class BillUtils
     # gather all bills relevant to the given period
     bill_ids = Bill.where(date_number: date_correlations.keys).map(&:id)
     # Find any records for those bills in the given period
-    found_records = BillRecord.where(date: start_date..end_date, bill_id: bill_ids).to_a
+    found_records = BillRecord.where(date: start_date..end_date, bill_id: bill_ids)
 
     # find any bills that are missing records for the current date range
     missing_bill_ids = bill_ids - found_records.map(&:bill_id)
@@ -27,7 +27,7 @@ class BillUtils
       end
     end
 
-    found_records
+    found_records.joins(:bill).order("bills.date_number").to_a
   end
 
   def self.createInPeriod(start_date, end_date)

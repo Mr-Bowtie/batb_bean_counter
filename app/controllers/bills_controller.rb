@@ -27,7 +27,7 @@ class BillsController < ApplicationController
       @start_date = params[:start_date]
       @end_date = params[:end_date]
       @bill_records = BillUtils.gatherInPeriod(Date.parse(params[:start_date]), Date.parse(params[:end_date]))
-      @period_balance = BillUtils.sum_records(@bill_records)
+      @period_balance = BillUtils.sum_paid_records(@bill_records)
     end
   end
 

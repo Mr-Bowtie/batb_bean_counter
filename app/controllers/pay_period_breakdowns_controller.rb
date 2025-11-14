@@ -8,7 +8,7 @@ class PayPeriodBreakdownsController < ApplicationController
 
   # GET /pay_period_breakdowns/1 or /pay_period_breakdowns/1.json
   def show
-    @bill_records = @pay_period_breakdown.bill_records.includes(:bill)
+    @bill_records = @pay_period_breakdown.bill_records.includes(:bill).joins(:bill).order("bills.date_number")
     @calculation = @pay_period_breakdown.calculate
     @remaining_bill_total_cents = @calculation[:bill_amount_remaining]
   end
