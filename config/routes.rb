@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :pay_period_breakdowns
   resources :bill_records
   resources :payment_sources

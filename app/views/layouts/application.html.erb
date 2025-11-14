@@ -50,6 +50,14 @@
           <div class="ml-2 nav-menu-item">
             <%= link_to "New Pay Period", new_pay_period_breakdown_path, class: "button is-link" %>
           </div>
+
+          <div class="ml-2 nav-menu-item">
+            <% if user_signed_in? %>
+              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "button is-light", form: { data: { turbo: false } } %>
+            <% else %>
+              <%= link_to "Sign in", new_user_session_path, class: "button is-light" %>
+            <% end %>
+          </div>
         </div>
 
       </div>
