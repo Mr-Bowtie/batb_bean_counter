@@ -1,11 +1,11 @@
-<% content_for :title, "New pay period breakdown" %>
+<div class="container mx-2">
+  <% content_for :title, "New Pay Period" %>
 
-<h1>New pay period breakdown</h1>
+  <h1 class="title is-3 has-text-centered">New Pay Period</h1>
 
-<%= render "form", pay_period_breakdown: @pay_period_breakdown %>
+  <%= render "form", pay_period_breakdown: @pay_period_breakdown %>
 
-<br>
-
-<div>
-  <%= link_to "Back to pay period breakdowns", pay_period_breakdowns_path %>
+  <div class="has-text-centered mt-4">
+    <%= link_to "Back to Pay Periods", pay_period_breakdowns_path, class: "button is-light" %>
+  </div>
 </div>

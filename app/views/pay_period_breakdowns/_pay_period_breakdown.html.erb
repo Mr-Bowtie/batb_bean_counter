@@ -1,21 +1,18 @@
 <div id="<%= dom_id pay_period_breakdown %>">
-  <p>
-    <strong>Paycheck amount:</strong>
-    <%= currency_from_cents(pay_period_breakdown.paycheck_amount) %>
+  <p class="has-text-centered title is-4">
+    <%= pay_period_breakdown.pay_date.strftime("%b %d, %Y") %> &rarr; <%= pay_period_breakdown.next_pay_date.strftime("%b %d, %Y") %>
   </p>
 
-  <p>
-    <strong>Pay date:</strong>
-    <%= pay_period_breakdown.pay_date %>
-  </p>
-
-  <p>
-    <strong>Next pay date:</strong>
-    <%= pay_period_breakdown.next_pay_date %>
-  </p>
-
-  <p>
-    <strong>Pay frequency:</strong>
+  <p class="has-text-centered mt-2">
+    <strong>Frequency:</strong>
     <%= pluralize(pay_period_breakdown.pay_frequency, "day") %>
+  </p>
+
+  <p class="has-text-centered has-text-success subtitle is-5">
+    Paycheck: $<%= currencyDecorator(pay_period_breakdown.paycheck_amount) %>
+  </p>
+
+  <p class="has-text-centered">
+    Created <%= time_ago_in_words(pay_period_breakdown.created_at) %> ago
   </p>
 </div>

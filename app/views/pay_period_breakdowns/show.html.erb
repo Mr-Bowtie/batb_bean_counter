@@ -1,50 +1,41 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mx-2">
+  <% content_for :title, "Pay period breakdown" %>
 
-<section>
-  <%= render @pay_period_breakdown %>
-</section>
+  <section class="box">
+    <%= render @pay_period_breakdown %>
 
-<section>
-  <h2>Bills in this pay period</h2>
-  <% if @bill_records.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Amount</th>
-          <th>Due Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @bill_records.each do |record| %>
-          <tr>
-            <td><%= record.bill&.name || "Bill ##{record.bill_id}" %></td>
-            <td><%= currency_from_cents(record.bill&.amount.to_i) %></td>
-            <td><%= record.date %></td>
-            <td><%= record.paid? ? "Paid" : "Pending" %></td>
-          </tr>
+    <div class="buttons is-centered mt-4">
+      <%= link_to "Edit", edit_pay_period_breakdown_path(@pay_period_breakdown), class: "button is-warning is-outlined" %>
+      <%= link_to "Back to list", pay_period_breakdowns_path, class: "button is-light" %>
+      <%= button_to "Delete", @pay_period_breakdown, method: :delete, data: { turbo_confirm: "Delete this breakdown?" }, class: "button is-danger is-outlined" %>
+    </div>
+  </section>
+
+  <section class="mt-6">
+    <h2 class="title is-4 has-text-centered">Bills in this pay period</h2>
+    <p class="has-text-centered subtitle is-5">
+      Remaining Due: <span class="has-text-danger">$<%= currencyDecorator(@remaining_bill_total_cents) %></span> / <span>$<%= currencyDecorator(@pay_period_breakdown.bill_total) %></span>
+    </p>
+
+    <% if @bill_records.any? %>
+      <div id="bill-records" class="grid mt-4">
+        <% @bill_records.sort_by(&:date).each do |bill_record| %>
+          <div class="cell bill-record <%= bill_record.every_check? ? "every-check" : "" %>">
+            <%= render bill_record %>
+          </div>
         <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No bills have been associated with this pay period yet.</p>
-  <% end %>
-</section>
+      </div>
+    <% else %>
+      <p class="has-text-centered has-text-grey">No bills matched this pay period yet.</p>
+    <% end %>
+  </section>
 
-<section>
-  <h2>Suggested allocation</h2>
-  <ul>
-    <li>Leftover funds: <%= currency_from_cents(@calculation[:leftover_funds]) %></li>
-    <li>Credit card funds: <%= currency_from_cents(@calculation[:credit_card_funds]) %></li>
-    <li>Fun money: <%= currency_from_cents(@calculation[:fun_money]) %></li>
-    <li>Individual funds: <%= currency_from_cents(@calculation[:individual_funds]) %></li>
-  </ul>
-</section>
-
-<div>
-  <%= link_to "Edit this pay period breakdown", edit_pay_period_breakdown_path(@pay_period_breakdown) %> |
-  <%= link_to "Back to pay period breakdowns", pay_period_breakdowns_path %>
-
-  <%= button_to "Destroy this pay period breakdown", @pay_period_breakdown, method: :delete %>
+  <section class="mt-6">
+    <h2 class="title is-4 has-text-centered">Distributables</h2>
+    <div class="grid mt-4">
+      <%= allocation_tile("Total leftover", @calculation[:leftover_funds], color_class: "has-text-success") %>
+      <%= allocation_tile("Credit Card Funds", @calculation[:credit_card_funds]) %>
+      <%= allocation_tile("Individual Funds", @calculation[:individual_funds], color_class: "has-text-warning") %>
+    </div>
+  </section>
 </div>

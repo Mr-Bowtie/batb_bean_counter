@@ -1,12 +1,12 @@
-<% content_for :title, "Editing pay period breakdown" %>
+<div class="container mx-2">
+  <% content_for :title, "Editing pay period breakdown" %>
 
-<h1>Editing pay period breakdown</h1>
+  <h1 class="title is-3 has-text-centered">Editing pay period breakdown</h1>
 
-<%= render "form", pay_period_breakdown: @pay_period_breakdown %>
+  <%= render "form", pay_period_breakdown: @pay_period_breakdown %>
 
-<br>
-
-<div>
-  <%= link_to "Show this pay period breakdown", @pay_period_breakdown %> |
-  <%= link_to "Back to pay period breakdowns", pay_period_breakdowns_path %>
+  <div class="has-text-centered mt-4">
+    <%= link_to "Show breakdown", @pay_period_breakdown, class: "button is-link is-light" %>
+    <%= link_to "Back to pay period breakdowns", pay_period_breakdowns_path, class: "button is-light" %>
+  </div>
 </div>

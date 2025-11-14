@@ -3,6 +3,7 @@
 # Table name: pay_period_breakdowns
 #
 #  id              :bigint           not null, primary key
+#  bill_total      :integer
 #  next_pay_date   :date
 #  pay_date        :date
 #  pay_frequency   :integer

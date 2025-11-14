@@ -1,6 +1,8 @@
 <div class="mx-2">
   <% content_for :title, "Bills" %>
 
+  <h1 class="title is-1 has-text-centered">Bills</h1>
+
   <div id="bills" class="grid mt-4">
     <% @bills.sort_by(&:date_number).each do |bill| %>
       <div class="cell bill">

@@ -30,17 +30,47 @@ class BillUtils
     found_records
   end
 
+  def self.createInPeriod(start_date, end_date)
+    return [] if start_date.blank? || end_date.blank? || end_date < start_date
+
+    # create an in memory hash to quickly reference the correct, in context date, given the date number from the bill.
+    date_correlations = {}
+    start_date.upto(end_date) { |date| date_correlations[date.day] = date }
+
+    new_records = []
+    # gather all bills relevant to the given period
+    Bill.where(date_number: date_correlations.keys).each do |bill|
+      new_record = BillRecord.create(bill_id: bill.id, date: date_correlations[bill.date_number])
+      new_records << new_record
+    end
+
+    new_records
+  end
+
   # @param records Array<BillRecord>
   # @return Integer sum of bill amounts in cents
-  def self.sum_records(records)
+  def self.sum_paid_records(records)
     records = Array(records)
     return 0 if records.empty?
 
     # extract bills from records
 
-    bill_ids = records.select{|rec| !rec.paid }.map(&:bill_id)
+    bill_ids = records.select { |rec| !rec.paid }.map(&:bill_id)
     bills = Bill.where(id: bill_ids)
     # sum bill amounts
     bills.reduce(0) { |memo, bill| memo + bill.amount }
+  end
+
+  def self.sum_records_total(records)
+    records = Array(records)
+    return 0 if records.empty?
+
+    # extract bills from records
+
+    bill_ids = records.map(&:bill_id)
+    bills = Bill.where(id: bill_ids)
+    # sum bill amounts
+    bills.reduce(0) { |memo, bill| memo + bill.amount }
+
   end
 end

@@ -18,6 +18,28 @@
   </head>
 
   <body class="container">
+    <nav class="navbar mt-4">
+      <div class="navbar-brand title is-1">Bean Counter</div>
+      <div class="navbar-menu">
+        <div class="navbar-start ml-4">
+          <div class="navbar-item">
+            <%= link_to "Bills", bills_path, class: "navbar-item is-size-4" %>
+          </div>
+          <div class="navbar-item">
+            <%= link_to "Pay Periods", pay_period_breakdowns_path, class: "navbar-item is-size-4" %>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <div class="ml-auto">
+            <%= link_to "New bill", new_bill_path, class: "button is-info" %>
+          </div>
+
+          <div class="ml-2">
+            <%= link_to "New Pay Period", new_pay_period_breakdown_path, class: "button is-link" %>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <div class="pt-4 pb-6">
       <div class="is-flex is-align-items-center mb-2">
@@ -42,17 +64,18 @@
           </div>
         <% end %>
 
-        <h1 class="title is-1 fixed-center-title-20">
-          <%= content_for :title %>
-        </h1>
-
-        <div class="ml-auto">
-          <%= link_to "New bill", new_bill_path, class: "button is-info" %>
-        </div>
       </div>
 
-      <p class="has-text-danger"><%= alert %></p>
-      <p style="color: green"><%= notice %></p>
+      <% if alert.present? %>
+        <div class="notification is-danger">
+          <%= alert %>
+        </div>
+      <% end %>
+      <% if notice.present? %>
+        <div class="notification is-success is-light">
+          <%= notice %>
+        </div>
+      <% end %>
     </div>
     <%= yield %>
   </body>

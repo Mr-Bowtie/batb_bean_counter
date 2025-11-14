@@ -13,4 +13,8 @@
 class BillRecord < ApplicationRecord
   belongs_to :bill
   has_and_belongs_to_many :pay_period_breakdowns
+
+  def every_check?
+    bill.show_each_paycheck
+  end
 end

@@ -36,7 +36,7 @@ class BillsController < ApplicationController
   # POST /bills or /bills.json
   def create
     @bill = Bill.new(bill_params)
-    @bill.amount = Bill.convertCurrencyForSubmit(bill_params[:amount])
+    @bill.amount = CurrencyUtils.convert_currency_for_submit(bill_params[:amount])
 
     respond_to do |format|
       if @bill.save
@@ -52,7 +52,7 @@ class BillsController < ApplicationController
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     trans_params = bill_params
-    trans_params[:amount] = Bill.convertCurrencyForSubmit(bill_params[:amount])
+    trans_params[:amount] = CurrencyUtils.convert_currency_for_submit(bill_params[:amount])
 
     respond_to do |format|
       if @bill.update(trans_params)

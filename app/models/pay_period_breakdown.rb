@@ -3,6 +3,7 @@
 # Table name: pay_period_breakdowns
 #
 #  id              :bigint           not null, primary key
+#  bill_total      :integer
 #  next_pay_date   :date
 #  pay_date        :date
 #  pay_frequency   :integer
@@ -14,12 +15,13 @@ class PayPeriodBreakdown < ApplicationRecord
   before_validation :populate_next_pay_date
   after_create_commit :associate_period_bill_records
   after_create_commit :create_every_check_bill_records
+  after_create_commit :set_bill_total
 
   has_and_belongs_to_many :bill_records, -> { order(:date) }
 
   validates :pay_date, :next_pay_date, :pay_frequency, :paycheck_amount, presence: true
   validates :pay_frequency, numericality: { only_integer: true, greater_than: 0 }
-  validates :paycheck_amount, numericality: { only_integer: true, greater_than: 0 }
+  validates :paycheck_amount, numericality: { greater_than: 0 }
   validate :next_pay_date_after_pay_date
 
   def bills
@@ -27,16 +29,15 @@ class PayPeriodBreakdown < ApplicationRecord
   end
 
   def calculate
-    total_bills_amount = BillUtils.sum_records(bills)
-    leftover_funds = paycheck_amount - total_bills_amount
+    bill_amount_remaining = BillUtils.sum_paid_records(bills)
+    leftover_funds = paycheck_amount - bill_total
     credit_card_funds = (leftover_funds * 75) / 100
-    fun_money = leftover_funds - credit_card_funds
-    individual_funds = fun_money / 2
+    individual_funds = (leftover_funds - credit_card_funds) / 2
 
     {
+      bill_amount_remaining: bill_amount_remaining,
       leftover_funds: leftover_funds,
       credit_card_funds: credit_card_funds,
-      fun_money: fun_money,
       individual_funds: individual_funds
     }
   end
@@ -74,5 +75,11 @@ class PayPeriodBreakdown < ApplicationRecord
     return if next_pay_date > pay_date
 
     errors.add(:next_pay_date, "must be after pay_date")
+  end
+
+  def set_bill_total
+    # all records will be unpaid upon creation so summing now will return total
+    self.bill_total = BillUtils.sum_records_total(bills)
+    save!
   end
 end

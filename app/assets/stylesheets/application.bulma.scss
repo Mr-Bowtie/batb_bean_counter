@@ -59,6 +59,11 @@
   border-radius: 15px;
 }
 
+.every-check {
+  border-radius: 15px;
+  border: 5px solid yellow !important;
+}
+
 // create a centered region 20% of vw and center text inside
 // INFO: allows for title to be centered easily with other elements inline
 // # TODO: 20% wont be big enough for all titles, either create more cleasses to handle different sizes or refactor for all sizes

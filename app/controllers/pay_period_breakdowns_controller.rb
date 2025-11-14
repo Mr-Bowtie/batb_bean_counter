@@ -10,6 +10,7 @@ class PayPeriodBreakdownsController < ApplicationController
   def show
     @bill_records = @pay_period_breakdown.bill_records.includes(:bill)
     @calculation = @pay_period_breakdown.calculate
+    @remaining_bill_total_cents = @calculation[:bill_amount_remaining]
   end
 
   # GET /pay_period_breakdowns/new
@@ -24,6 +25,7 @@ class PayPeriodBreakdownsController < ApplicationController
   # POST /pay_period_breakdowns or /pay_period_breakdowns.json
   def create
     @pay_period_breakdown = PayPeriodBreakdown.new(pay_period_breakdown_params)
+    @pay_period_breakdown.paycheck_amount = CurrencyUtils.convert_currency_for_submit(pay_period_breakdown_params[:paycheck_amount])
 
     respond_to do |format|
       if @pay_period_breakdown.save
