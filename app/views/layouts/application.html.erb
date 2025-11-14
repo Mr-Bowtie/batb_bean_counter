@@ -18,26 +18,40 @@
   </head>
 
   <body class="container">
-    <nav class="navbar mt-4">
-      <div class="navbar-brand title is-1">Bean Counter</div>
-      <div class="navbar-menu">
+    <nav class="navbar mt-4" data-controller="navbar">
+      <div class="navbar-brand title is-1">
+        <%= link_to "Bean Counter", bills_path, class: "is-size-1" %>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-action='click->navbar#toggleMenu'
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu" data-navbar-target="menu">
         <div class="navbar-start ml-4">
-          <div class="navbar-item">
-            <%= link_to "Bills", bills_path, class: "navbar-item is-size-4" %>
-          </div>
-          <div class="navbar-item">
-            <%= link_to "Pay Periods", pay_period_breakdowns_path, class: "navbar-item is-size-4" %>
+          <div class="navbar-item nav-menu-item">
+            <%= link_to "Pay Periods",
+            pay_period_breakdowns_path,
+            class: "navbar-item is-size-4" %>
           </div>
         </div>
         <div class="navbar-end">
-          <div class="ml-auto">
+          <div class="ml-auto nav-menu-item">
             <%= link_to "New bill", new_bill_path, class: "button is-info" %>
           </div>
 
-          <div class="ml-2">
+          <div class="ml-2 nav-menu-item">
             <%= link_to "New Pay Period", new_pay_period_breakdown_path, class: "button is-link" %>
           </div>
         </div>
+
       </div>
     </nav>
 
