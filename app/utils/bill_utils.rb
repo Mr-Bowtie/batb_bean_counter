@@ -15,7 +15,7 @@ class BillUtils
     found_records = BillRecord.where(date: start_date..end_date, bill_id: bill_ids)
 
     # find any bills that are missing records for the current date range
-    missing_bill_ids = bill_ids - found_records.map(&:bill_id)
+    missing_bill_ids = bill_ids - found_records.pluck(:bill_id)
 
     # if missing_bill_ids has any ids, create a new record for that bill id
     # use bill date_number and the date_correlations to set the correct date
@@ -23,8 +23,8 @@ class BillUtils
       missing_bill_ids.each do  |id|
         bill = Bill.find(id)
         new_record = BillRecord.create(bill_id: id, date: date_correlations[bill.date_number])
-        found_records << new_record
       end
+      found_records = BillRecord.where(date: start_date..end_date, bill_id: bill_ids)
     end
 
     found_records.joins(:bill).order("bills.date_number").to_a

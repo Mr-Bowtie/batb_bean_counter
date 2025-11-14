@@ -34,8 +34,11 @@
     <h2 class="title is-4 has-text-centered">Distributables</h2>
     <div class="grid mt-4">
       <%= allocation_tile("Total leftover", @calculation[:leftover_funds], color_class: "has-text-success") %>
-      <%= allocation_tile("Credit Card Funds", @calculation[:credit_card_funds]) %>
-      <%= allocation_tile("Individual Funds", @calculation[:individual_funds], color_class: "has-text-warning") %>
+      <%= allocation_tile("Credit Card Funds (#{@calculation[:credit_card_allocation_pct]}%)", @calculation[:credit_card_funds]) %>
+      <%= allocation_tile("Individual Funds (#{@calculation[:individual_allocation_pct]}% split)", @calculation[:individual_funds], color_class: "has-text-warning") %>
     </div>
+    <p class="has-text-centered has-text-grey mt-2 is-size-6">
+      Individual funds represent the per-person amount after splitting the configured percentage.
+    </p>
   </section>
 </div>

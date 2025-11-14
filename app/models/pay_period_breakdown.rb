@@ -2,16 +2,21 @@
 #
 # Table name: pay_period_breakdowns
 #
-#  id              :bigint           not null, primary key
-#  bill_total      :integer
-#  next_pay_date   :date
-#  pay_date        :date
-#  pay_frequency   :integer
-#  paycheck_amount :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                         :bigint           not null, primary key
+#  bill_total                 :integer
+#  credit_card_allocation_pct :integer          default(75), not null
+#  individual_allocation_pct  :integer          default(25), not null
+#  next_pay_date              :date
+#  pay_date                   :date
+#  pay_frequency              :integer
+#  paycheck_amount            :integer
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
 #
 class PayPeriodBreakdown < ApplicationRecord
+  attribute :credit_card_allocation_pct, :integer, default: 75
+  attribute :individual_allocation_pct, :integer, default: 25
+
   before_validation :populate_next_pay_date
   after_create_commit :associate_period_bill_records
   after_create_commit :create_every_check_bill_records
@@ -22,7 +27,10 @@ class PayPeriodBreakdown < ApplicationRecord
   validates :pay_date, :next_pay_date, :pay_frequency, :paycheck_amount, presence: true
   validates :pay_frequency, numericality: { only_integer: true, greater_than: 0 }
   validates :paycheck_amount, numericality: { greater_than: 0 }
+  validates :credit_card_allocation_pct, :individual_allocation_pct,
+            numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validate :next_pay_date_after_pay_date
+  validate :allocation_percentages_total
 
   def bills
     bill_records
@@ -30,15 +38,20 @@ class PayPeriodBreakdown < ApplicationRecord
 
   def calculate
     bill_amount_remaining = BillUtils.sum_paid_records(bills)
-    leftover_funds = paycheck_amount - bill_total
-    credit_card_funds = (leftover_funds * 75) / 100
-    individual_funds = (leftover_funds - credit_card_funds) / 2
+    leftover_funds = paycheck_amount.to_i - bill_total.to_i
+    distributable_funds = [leftover_funds, 0].max
+    credit_card_funds = (distributable_funds * credit_card_allocation_pct) / 100
+    individual_total_funds = (distributable_funds * individual_allocation_pct) / 100
+    individual_funds = individual_total_funds / 2
 
     {
       bill_amount_remaining: bill_amount_remaining,
       leftover_funds: leftover_funds,
       credit_card_funds: credit_card_funds,
-      individual_funds: individual_funds
+      individual_funds: individual_funds,
+      individual_total_funds: individual_total_funds,
+      credit_card_allocation_pct: credit_card_allocation_pct,
+      individual_allocation_pct: individual_allocation_pct
     }
   end
 
@@ -75,6 +88,12 @@ class PayPeriodBreakdown < ApplicationRecord
     return if next_pay_date > pay_date
 
     errors.add(:next_pay_date, "must be after pay_date")
+  end
+
+  def allocation_percentages_total
+    return if credit_card_allocation_pct.to_i + individual_allocation_pct.to_i == 100
+
+    errors.add(:base, "Credit card and individual allocations must total 100%")
   end
 
   def set_bill_total

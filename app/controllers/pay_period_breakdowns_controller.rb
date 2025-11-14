@@ -24,8 +24,7 @@ class PayPeriodBreakdownsController < ApplicationController
 
   # POST /pay_period_breakdowns or /pay_period_breakdowns.json
   def create
-    @pay_period_breakdown = PayPeriodBreakdown.new(pay_period_breakdown_params)
-    @pay_period_breakdown.paycheck_amount = CurrencyUtils.convert_currency_for_submit(pay_period_breakdown_params[:paycheck_amount])
+    @pay_period_breakdown = PayPeriodBreakdown.new(processed_pay_period_breakdown_params)
 
     respond_to do |format|
       if @pay_period_breakdown.save
@@ -41,7 +40,7 @@ class PayPeriodBreakdownsController < ApplicationController
   # PATCH/PUT /pay_period_breakdowns/1 or /pay_period_breakdowns/1.json
   def update
     respond_to do |format|
-      if @pay_period_breakdown.update(pay_period_breakdown_params)
+      if @pay_period_breakdown.update(processed_pay_period_breakdown_params)
         format.html { redirect_to @pay_period_breakdown, notice: "Pay period breakdown was successfully updated." }
         format.json { render :show, status: :ok, location: @pay_period_breakdown }
       else
@@ -69,6 +68,22 @@ class PayPeriodBreakdownsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pay_period_breakdown_params
-      params.require(:pay_period_breakdown).permit(:paycheck_amount, :pay_date, :pay_frequency)
+      params.require(:pay_period_breakdown).permit(
+        :paycheck_amount,
+        :pay_date,
+        :pay_frequency,
+        :credit_card_allocation_pct,
+        :individual_allocation_pct
+      )
+    end
+
+    def processed_pay_period_breakdown_params
+      permitted_params = pay_period_breakdown_params.to_h
+
+      if permitted_params["paycheck_amount"].present?
+        permitted_params["paycheck_amount"] = CurrencyUtils.convert_currency_for_submit(permitted_params["paycheck_amount"])
+      end
+
+      permitted_params
     end
 end

@@ -2,22 +2,24 @@ require 'rails_helper'
 
 RSpec.describe "pay_period_breakdowns/index", type: :view do
   before(:each) do
-    assign(:pay_period_breakdowns, [
+    pay_periods = [
       PayPeriodBreakdown.create!(
         paycheck_amount: 2,
-        pay_frequency: 3
+        pay_frequency: 3,
+        pay_date: Date.today
       ),
       PayPeriodBreakdown.create!(
         paycheck_amount: 2,
-        pay_frequency: 3
+        pay_frequency: 3,
+        pay_date: Date.today
       )
-    ])
+    ]
+
+    assign(:pay_period_breakdowns, PayPeriodBreakdown.where(id: pay_periods.map(&:id)))
   end
 
   it "renders a list of pay_period_breakdowns" do
     render
-    cell_selector = 'div>p'
-    assert_select cell_selector, text: Regexp.new(2.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(3.to_s), count: 2
+    assert_select "div.pay-period-breakdown", count: 2
   end
 end

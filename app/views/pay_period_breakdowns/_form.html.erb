@@ -19,6 +19,22 @@
     </div>
 
     <div class="field mt-4">
+      <%= form.label :credit_card_allocation_pct, "Credit Card Allocation (%)", class: "label" %>
+      <div class="control">
+        <%= form.number_field :credit_card_allocation_pct, class: "input", min: 0, max: 100, step: 1 %>
+      </div>
+      <p class="help">Percentage of leftover funds dedicated to credit cards.</p>
+    </div>
+
+    <div class="field mt-4">
+      <%= form.label :individual_allocation_pct, "Individual Allocation (%)", class: "label" %>
+      <div class="control">
+        <%= form.number_field :individual_allocation_pct, class: "input", min: 0, max: 100, step: 1 %>
+      </div>
+      <p class="help">Must total 100% with the credit card allocation. This portion is split evenly between individuals.</p>
+    </div>
+
+    <div class="field mt-4">
       <%= form.label :pay_date, class: "label" %>
       <div class="control">
         <%= form.date_field :pay_date, class: "input" %>
