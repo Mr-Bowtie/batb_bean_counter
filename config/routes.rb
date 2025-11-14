@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: [:registrations]
   resources :pay_period_breakdowns
   resources :bill_records
   resources :payment_sources

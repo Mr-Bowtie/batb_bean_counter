@@ -1,0 +1,9 @@
+<div class="buttons is-flex is-flex-direction-column is-align-items-stretch">
+  <% if devise_mapping.recoverable? && controller_name != "passwords" %>
+    <%= link_to "Forgot your password?", new_password_path(resource_name), class: "button is-white is-fullwidth" %>
+  <% end %>
+
+  <% if controller_name != "sessions" %>
+    <%= link_to "Return to sign in", new_session_path(resource_name), class: "button is-text is-fullwidth" %>
+  <% end %>
+</div>
