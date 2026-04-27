@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "pay_period_breakdowns/new", type: :view do
   before(:each) do
-    assign(:pay_period_breakdown, PayPeriodBreakdown.new(
+    pay_period_breakdown = PayPeriodBreakdown.new(
       paycheck_amount: 1,
       pay_frequency: 1,
-      pay_date: Date.today,
-      credit_card_allocation_pct: 75,
-      individual_allocation_pct: 25
-    ))
+      pay_date: Date.today
+    )
+    pay_period_breakdown.build_default_allocations
+
+    assign(:pay_period_breakdown, pay_period_breakdown)
   end
 
   it "renders new pay_period_breakdown form" do
@@ -20,9 +21,10 @@ RSpec.describe "pay_period_breakdowns/new", type: :view do
 
       assert_select "input[name=?]", "pay_period_breakdown[pay_frequency]"
 
-      assert_select "input[name=?]", "pay_period_breakdown[credit_card_allocation_pct]"
-
-      assert_select "input[name=?]", "pay_period_breakdown[individual_allocation_pct]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][0][label]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][0][percentage]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][1][label]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][1][percentage]"
     end
   end
 end

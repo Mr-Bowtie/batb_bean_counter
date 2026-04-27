@@ -8,7 +8,11 @@ class PayPeriodBreakdownsController < ApplicationController
 
   # GET /pay_period_breakdowns/1 or /pay_period_breakdowns/1.json
   def show
-    @bill_records = @pay_period_breakdown.bill_records.includes(:bill).joins(:bill).order("bills.date_number")
+    @bill_records = @pay_period_breakdown.bill_records
+                                      .includes(bill: :payment_source)
+                                      .left_outer_joins(:bill)
+                                      .order(Arel.sql("bill_records.date ASC, bills.date_number ASC NULLS LAST"))
+    @new_bill_record = BillRecord.new(date: @pay_period_breakdown.pay_date)
     @calculation = @pay_period_breakdown.calculate
     @remaining_bill_total_cents = @calculation[:bill_amount_remaining]
   end
@@ -16,10 +20,12 @@ class PayPeriodBreakdownsController < ApplicationController
   # GET /pay_period_breakdowns/new
   def new
     @pay_period_breakdown = PayPeriodBreakdown.new
+    @pay_period_breakdown.build_default_allocations
   end
 
   # GET /pay_period_breakdowns/1/edit
   def edit
+    @pay_period_breakdown.build_default_allocations
   end
 
   # POST /pay_period_breakdowns or /pay_period_breakdowns.json
@@ -72,8 +78,12 @@ class PayPeriodBreakdownsController < ApplicationController
         :paycheck_amount,
         :pay_date,
         :pay_frequency,
-        :credit_card_allocation_pct,
-        :individual_allocation_pct
+        pay_period_allocations_attributes: [
+          :id,
+          :label,
+          :percentage,
+          :_destroy
+        ]
       )
     end
 

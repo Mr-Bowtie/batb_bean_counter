@@ -1,0 +1,30 @@
+<div class="box mt-3" data-allocation-form-target="row">
+  <%= form.hidden_field :_destroy, data: { allocation_form_target: "destroyField" } %>
+
+  <div class="field">
+    <%= form.label :label, "Label", class: "label" %>
+    <div class="control">
+      <%= form.text_field :label, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :percentage, "Percentage", class: "label" %>
+    <div class="control">
+      <%= form.number_field :percentage,
+                            class: "input",
+                            min: 0,
+                            max: 100,
+                            step: 1,
+                            data: { action: "input->allocation-form#updateTotal" } %>
+    </div>
+  </div>
+
+  <div class="has-text-right">
+    <button type="button"
+            class="button is-danger is-light is-small"
+            data-action="allocation-form#removeAllocation">
+      Remove Allocation
+    </button>
+  </div>
+</div>

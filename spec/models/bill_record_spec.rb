@@ -26,4 +26,23 @@ RSpec.describe BillRecord, type: :model do
       expect(bill_record.amount).to eq(80_00)
     end
   end
+
+  describe "validations" do
+    it "allows ad hoc bill records without an associated bill" do
+      bill_record = described_class.new(
+        message: "Parking",
+        amount: 25_00,
+        date: Date.new(2025, 1, 10)
+      )
+
+      expect(bill_record).to be_valid
+    end
+
+    it "requires a message for ad hoc bill records" do
+      bill_record = described_class.new(amount: 25_00, date: Date.new(2025, 1, 10))
+
+      expect(bill_record).not_to be_valid
+      expect(bill_record.errors[:message]).to include("can't be blank for an ad hoc bill record")
+    end
+  end
 end

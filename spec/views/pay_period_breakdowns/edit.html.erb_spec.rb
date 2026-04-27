@@ -5,9 +5,7 @@ RSpec.describe "pay_period_breakdowns/edit", type: :view do
     PayPeriodBreakdown.create!(
       paycheck_amount: 1_000_00,
       pay_frequency: 14,
-      pay_date: Date.today,
-      credit_card_allocation_pct: 75,
-      individual_allocation_pct: 25
+      pay_date: Date.today
     )
   }
 
@@ -24,9 +22,10 @@ RSpec.describe "pay_period_breakdowns/edit", type: :view do
 
       assert_select "input[name=?]", "pay_period_breakdown[pay_frequency]"
 
-      assert_select "input[name=?]", "pay_period_breakdown[credit_card_allocation_pct]"
-
-      assert_select "input[name=?]", "pay_period_breakdown[individual_allocation_pct]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][0][label]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][0][percentage]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][1][label]"
+      assert_select "input[name=?]", "pay_period_breakdown[pay_period_allocations_attributes][1][percentage]"
     end
   end
 end

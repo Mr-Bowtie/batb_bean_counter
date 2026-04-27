@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
-  resources :pay_period_breakdowns
-  resources :bill_records
+  resources :pay_period_breakdowns do
+    resources :bill_records, only: :create
+  end
+  resources :bill_records, only: %i[ edit update ]
   resources :payment_sources
   resources :bills
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -8,14 +8,14 @@ RSpec.describe "pay_period_breakdowns/show", type: :view do
       pay_date: Date.today
     ))
     assign(:bill_records, [])
+    assign(:new_bill_record, BillRecord.new(date: Date.today))
     assign(:calculation, {
       bill_amount_remaining: 0,
       leftover_funds: 0,
-      credit_card_funds: 0,
-      individual_total_funds: 0,
-      individual_funds: 0,
-      credit_card_allocation_pct: 75,
-      individual_allocation_pct: 25
+      allocations: [
+        { label: "Leftover Allocation", percentage: 75, amount: 0 },
+        { label: "Personal Allocation", percentage: 25, amount: 0 }
+      ]
     })
     assign(:remaining_bill_total_cents, 0)
   end

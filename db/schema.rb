@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_27_214951) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_27_221354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_27_214951) do
     t.boolean "show_each_paycheck", default: false
   end
 
+  create_table "pay_period_allocations", force: :cascade do |t|
+    t.bigint "pay_period_breakdown_id", null: false
+    t.string "label", null: false
+    t.integer "percentage", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pay_period_breakdown_id"], name: "index_pay_period_allocations_on_pay_period_breakdown_id"
+  end
+
   create_table "pay_period_breakdowns", force: :cascade do |t|
     t.integer "paycheck_amount"
     t.date "pay_date"
@@ -50,8 +59,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_27_214951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "bill_total"
-    t.integer "credit_card_allocation_pct", default: 75, null: false
-    t.integer "individual_allocation_pct", default: 25, null: false
   end
 
   create_table "payment_sources", force: :cascade do |t|
@@ -72,4 +79,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_27_214951) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "pay_period_allocations", "pay_period_breakdowns"
 end

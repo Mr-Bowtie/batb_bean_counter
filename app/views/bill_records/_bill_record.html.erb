@@ -1,34 +1,40 @@
-<div id="<%= dom_id bill_record %>">
+<div id="<%= dom_id bill_record %>" data-controller="bill-record-form">
   <p class="has-text-centered title is-4">
-    <%= bill_record.bill.name %>
+    <%= bill_record.display_name %>
   </p>
   <p class="has-text-centered mt-2">
     <%= bill_record.date %>
   </p>
 
   <p class="has-text-centered mt-2">
-    <strong class="has-text-info"><%= bill_record.bill.payment_source.name %></strong>
+    <strong class="has-text-info"><%= bill_record.source_name %></strong>
   </p>
 
-  <%= form_with model: bill_record, method: :patch, class: "mt-4" do |form| %>
-    <%= form.hidden_field :return_to, value: local_assigns[:return_to] %>
+  <p class="has-text-centered has-text-danger subtitle is-5 mt-3">
+    $<%= currencyDecorator(bill_record.amount) %>
+  </p>
 
-    <div class="field">
-      <%= form.label :amount, class: "label has-text-centered" %>
-      <div class="control">
-        <%= form.text_field :amount, value: currencyDecorator(bill_record.amount), class: "input has-text-centered" %>
-      </div>
-    </div>
+  <p class="has-text-centered mt-2">
+    Status:
+    <strong><%= bill_record.paid? ? "Paid" : "Due" %></strong>
+  </p>
 
-    <div class="field">
-      <div class="control is-flex is-align-items-center is-justify-content-center">
-        <%= form.label :paid, "Paid", class: "mr-2" %>
-        <%= form.check_box :paid, class: "ml-2" %>
-      </div>
-    </div>
+  <div class="has-text-centered mt-3">
+    <button type="button"
+            class="button is-info is-light is-small"
+            data-bill-record-form-target="toggleButton"
+            data-action="bill-record-form#toggle">
+      Edit
+    </button>
+  </div>
 
-    <div class="has-text-centered">
-      <%= form.submit "Save", class: "button is-info is-outlined" %>
-    </div>
-  <% end %>
+  <div class="mt-4 is-hidden" data-bill-record-form-target="panel">
+    <%= render "bill_records/form",
+               bill_record: bill_record,
+               form_url: bill_record_path(bill_record),
+               form_method: :patch,
+               return_to: local_assigns[:return_to],
+               submit_label: "Save Changes",
+               form_class: "mt-2" %>
+  </div>
 </div>

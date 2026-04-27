@@ -18,20 +18,37 @@
       </div>
     </div>
 
-    <div class="field mt-4">
-      <%= form.label :credit_card_allocation_pct, "Credit Card Allocation (%)", class: "label" %>
-      <div class="control">
-        <%= form.number_field :credit_card_allocation_pct, class: "input", min: 0, max: 100, step: 1 %>
+    <div class="mt-5"
+         data-controller="allocation-form"
+         data-allocation-form-index-value="<%= pay_period_breakdown.pay_period_allocations.size %>">
+      <div class="is-flex is-justify-content-space-between is-align-items-center">
+        <div>
+          <p class="label mb-1">Allocations</p>
+          <p class="help">Labels and percentages are fully editable. All active allocations must total exactly 100%.</p>
+        </div>
+        <button type="button"
+                class="button is-link is-light is-small"
+                data-action="allocation-form#addAllocation">
+          Add Allocation
+        </button>
       </div>
-      <p class="help">Percentage of leftover funds dedicated to credit cards.</p>
-    </div>
 
-    <div class="field mt-4">
-      <%= form.label :individual_allocation_pct, "Individual Allocation (%)", class: "label" %>
-      <div class="control">
-        <%= form.number_field :individual_allocation_pct, class: "input", min: 0, max: 100, step: 1 %>
+      <p class="has-text-weight-semibold mt-3">
+        Current total:
+        <span data-allocation-form-target="total"></span>
+      </p>
+
+      <div data-allocation-form-target="container">
+        <%= form.fields_for :pay_period_allocations do |allocation_fields| %>
+          <%= render "allocation_fields", form: allocation_fields %>
+        <% end %>
       </div>
-      <p class="help">Must total 100% with the credit card allocation. This portion is split evenly between individuals.</p>
+
+      <template data-allocation-form-target="template">
+        <%= form.fields_for :pay_period_allocations, PayPeriodAllocation.new, child_index: "NEW_RECORD" do |allocation_fields| %>
+          <%= render "allocation_fields", form: allocation_fields %>
+        <% end %>
+      </template>
     </div>
 
     <div class="field mt-4">
@@ -57,7 +74,7 @@
     </div>
 
     <div class="has-text-centered mt-4">
-      <%= form.submit "Create Pay Period", class: "button is-primary is-outlined" %>
+      <%= form.submit pay_period_breakdown.persisted? ? "Update Pay Period" : "Create Pay Period", class: "button is-primary is-outlined" %>
     </div>
   <% end %>
 </div>

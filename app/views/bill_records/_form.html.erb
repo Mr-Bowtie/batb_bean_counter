@@ -1,0 +1,40 @@
+<%= form_with model: bill_record,
+              url: local_assigns[:form_url],
+              method: local_assigns[:form_method] || :patch,
+              class: local_assigns[:form_class] do |form| %>
+  <%= form.hidden_field :return_to, value: local_assigns[:return_to] %>
+
+  <% if bill_record.bill.nil? %>
+    <div class="field">
+      <%= form.label :message, "Label", class: "label has-text-centered" %>
+      <div class="control">
+        <%= form.text_field :message, class: "input has-text-centered" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date, class: "label has-text-centered" %>
+    <div class="control">
+      <%= form.date_field :date, class: "input has-text-centered" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount, class: "label has-text-centered" %>
+    <div class="control">
+      <%= form.text_field :amount, value: currencyDecorator(bill_record.amount), class: "input has-text-centered" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control is-flex is-align-items-center is-justify-content-center">
+      <%= form.label :paid, "Paid", class: "mr-2" %>
+      <%= form.check_box :paid, class: "ml-2" %>
+    </div>
+  </div>
+
+  <div class="has-text-centered">
+    <%= form.submit(local_assigns[:submit_label] || "Save", class: "button is-info is-outlined") %>
+  </div>
+<% end %>

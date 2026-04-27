@@ -12,14 +12,43 @@
   </section>
 
   <section class="mt-6">
+    <h2 class="title is-4 has-text-centered">Distributables</h2>
+    <div class="grid mt-4">
+      <%= allocation_tile("Total leftover", @calculation[:leftover_funds], color_class: "has-text-success") %>
+      <% @calculation[:allocations].each do |allocation| %>
+        <%= allocation_tile("#{allocation[:label]} (#{allocation[:percentage]}%)", allocation[:amount]) %>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="mt-6">
     <h2 class="title is-4 has-text-centered">Bills in this pay period</h2>
     <p class="has-text-centered subtitle is-5">
       Remaining Due: <span class="has-text-danger">$<%= currencyDecorator(@remaining_bill_total_cents) %></span> / <span>$<%= currencyDecorator(@pay_period_breakdown.bill_total) %></span>
     </p>
 
+    <div class="has-text-centered mt-4" data-controller="bill-record-form">
+      <button type="button"
+              class="button is-primary is-light"
+              data-bill-record-form-target="toggleButton"
+              data-action="bill-record-form#toggle">
+        Add Ad Hoc Bill
+      </button>
+
+      <div class="box mt-4 is-hidden" data-bill-record-form-target="panel">
+        <%= render "bill_records/form",
+                   bill_record: @new_bill_record,
+                   form_url: pay_period_breakdown_bill_records_path(@pay_period_breakdown),
+                   form_method: :post,
+                   return_to: pay_period_breakdown_path(@pay_period_breakdown),
+                   submit_label: "Create Bill Record",
+                   form_class: "mt-2" %>
+      </div>
+    </div>
+
     <% if @bill_records.any? %>
-      <div id="bill-records" class="grid mt-4">
-        <% @bill_records.sort_by(&:date).each do |bill_record| %>
+      <div id="bill-records" class="grid is-col-min-7 mt-4">
+        <% @bill_records.each do |bill_record| %>
           <div class="cell bill-record <%= bill_record.every_check? ? "every-check" : "" %>">
             <%= render bill_record, return_to: pay_period_breakdown_path(@pay_period_breakdown) %>
           </div>
@@ -30,15 +59,4 @@
     <% end %>
   </section>
 
-  <section class="mt-6">
-    <h2 class="title is-4 has-text-centered">Distributables</h2>
-    <div class="grid mt-4">
-      <%= allocation_tile("Total leftover", @calculation[:leftover_funds], color_class: "has-text-success") %>
-      <%= allocation_tile("Credit Card Funds (#{@calculation[:credit_card_allocation_pct]}%)", @calculation[:credit_card_funds]) %>
-      <%= allocation_tile("Individual Funds (#{@calculation[:individual_allocation_pct]}% split)", @calculation[:individual_funds], color_class: "has-text-warning") %>
-    </div>
-    <p class="has-text-centered has-text-grey mt-2 is-size-6">
-      Individual funds represent the per-person amount after splitting the configured percentage.
-    </p>
-  </section>
 </div>
