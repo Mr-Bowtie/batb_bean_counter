@@ -22,7 +22,7 @@ class BillUtils
     unless missing_bill_ids.empty?
       missing_bill_ids.each do  |id|
         bill = Bill.find(id)
-        new_record = BillRecord.create(bill_id: id, date: date_correlations[bill.date_number])
+        new_record = BillRecord.create(bill_id: id, date: date_correlations[bill.date_number], amount: bill.amount)
       end
       found_records = BillRecord.where(date: start_date..end_date, bill_id: bill_ids)
     end
@@ -40,7 +40,7 @@ class BillUtils
     new_records = []
     # gather all bills relevant to the given period
     Bill.where(date_number: date_correlations.keys).each do |bill|
-      new_record = BillRecord.create(bill_id: bill.id, date: date_correlations[bill.date_number])
+      new_record = BillRecord.create(bill_id: bill.id, date: date_correlations[bill.date_number], amount: bill.amount)
       new_records << new_record
     end
 
@@ -53,24 +53,13 @@ class BillUtils
     records = Array(records)
     return 0 if records.empty?
 
-    # extract bills from records
-
-    bill_ids = records.select { |rec| !rec.paid }.map(&:bill_id)
-    bills = Bill.where(id: bill_ids)
-    # sum bill amounts
-    bills.reduce(0) { |memo, bill| memo + bill.amount }
+    records.reject(&:paid).sum { |record| record.amount.to_i }
   end
 
   def self.sum_records_total(records)
     records = Array(records)
     return 0 if records.empty?
 
-    # extract bills from records
-
-    bill_ids = records.map(&:bill_id)
-    bills = Bill.where(id: bill_ids)
-    # sum bill amounts
-    bills.reduce(0) { |memo, bill| memo + bill.amount }
-
+    records.sum { |record| record.amount.to_i }
   end
 end

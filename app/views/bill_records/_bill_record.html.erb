@@ -10,15 +10,25 @@
     <strong class="has-text-info"><%= bill_record.bill.payment_source.name %></strong>
   </p>
 
-  <div class="is-flex is-align-items-center is-justify-content-center">
-    <p class="has-text-centered">Paid :
-    </p>
-    <%= form_with url: bill_record_path(bill_record), method: :patch, local: true, class: "is-flex is-flex-direction-column is-align-items-center" do |form| %>
-      <%= form.check_box :paid,
-                     { onchange: "this.form.submit();", checked: bill_record.paid, class: "ml-2" } %>
-    <% end %>
-  </div>
-  <p class="has-text-centered has-text-danger subtitle is-5">
-    $<%= currencyDecorator(bill_record.bill.amount) %>
-  </p>
+  <%= form_with model: bill_record, method: :patch, class: "mt-4" do |form| %>
+    <%= form.hidden_field :return_to, value: local_assigns[:return_to] %>
+
+    <div class="field">
+      <%= form.label :amount, class: "label has-text-centered" %>
+      <div class="control">
+        <%= form.text_field :amount, value: currencyDecorator(bill_record.amount), class: "input has-text-centered" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control is-flex is-align-items-center is-justify-content-center">
+        <%= form.label :paid, "Paid", class: "mr-2" %>
+        <%= form.check_box :paid, class: "ml-2" %>
+      </div>
+    </div>
+
+    <div class="has-text-centered">
+      <%= form.submit "Save", class: "button is-info is-outlined" %>
+    </div>
+  <% end %>
 </div>

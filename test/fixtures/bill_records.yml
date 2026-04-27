@@ -3,6 +3,7 @@
 # Table name: bill_records
 #
 #  id         :bigint           not null, primary key
+#  amount     :integer          not null
 #  date       :date
 #  message    :text
 #  paid       :boolean          default(FALSE)

@@ -37,8 +37,9 @@ class PayPeriodBreakdown < ApplicationRecord
   end
 
   def calculate
+    current_bill_total = BillUtils.sum_records_total(bills)
     bill_amount_remaining = BillUtils.sum_paid_records(bills)
-    leftover_funds = paycheck_amount.to_i - bill_total.to_i
+    leftover_funds = paycheck_amount.to_i - current_bill_total
     distributable_funds = [leftover_funds, 0].max
     credit_card_funds = (distributable_funds * credit_card_allocation_pct) / 100
     individual_total_funds = (distributable_funds * individual_allocation_pct) / 100
@@ -55,6 +56,10 @@ class PayPeriodBreakdown < ApplicationRecord
     }
   end
 
+  def refresh_bill_total!
+    update_column(:bill_total, BillUtils.sum_records_total(bills))
+  end
+
   def associate_period_bill_records
     return if pay_date.blank? || next_pay_date.blank?
 
@@ -65,7 +70,9 @@ class PayPeriodBreakdown < ApplicationRecord
   def create_every_check_bill_records
     BillRecord.transaction do
       Bill.where(show_each_paycheck: true).find_each do |bill|
-        record = BillRecord.find_or_create_by!(bill_id: bill.id, date: pay_date)
+        record = BillRecord.find_or_create_by!(bill_id: bill.id, date: pay_date) do |new_record|
+          new_record.amount = bill.amount
+        end
         add_bill_record(record)
       end
     end
@@ -97,8 +104,6 @@ class PayPeriodBreakdown < ApplicationRecord
   end
 
   def set_bill_total
-    # all records will be unpaid upon creation so summing now will return total
-    self.bill_total = BillUtils.sum_records_total(bills)
-    save!
+    refresh_bill_total!
   end
 end

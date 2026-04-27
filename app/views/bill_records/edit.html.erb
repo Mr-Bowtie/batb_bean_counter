@@ -1,0 +1,9 @@
+<% content_for :title, "Editing Bill Record" %>
+
+<div class="container">
+  <h1 class="title is-1">Editing Bill Record</h1>
+
+  <div class="container is-flex is-flex-direction-column is-align-items-center">
+    <%= render "bill_record", bill_record: @bill_record, return_to: request.referer %>
+  </div>
+</div>

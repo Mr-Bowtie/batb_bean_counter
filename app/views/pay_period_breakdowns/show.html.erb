@@ -21,7 +21,7 @@
       <div id="bill-records" class="grid mt-4">
         <% @bill_records.sort_by(&:date).each do |bill_record| %>
           <div class="cell bill-record <%= bill_record.every_check? ? "every-check" : "" %>">
-            <%= render bill_record %>
+            <%= render bill_record, return_to: pay_period_breakdown_path(@pay_period_breakdown) %>
           </div>
         <% end %>
       </div>
